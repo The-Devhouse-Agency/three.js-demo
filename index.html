@@ -21,7 +21,7 @@
 		<!-- Remove this when import maps will be widely supported -->
 		<!-- <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script> -->
 
-	 <script type="importmap">
+	 	<script type="importmap">
 			{
 				"imports": {
 					"three": "./build/three.module.js"
@@ -31,18 +31,17 @@
 
 		<script type="module">
 
-			// const IS_IOS =
-            //     /^(iPad|iPhone|iPod)/.test(window.navigator.platform) ||
-            //     (/^Mac/.test(window.navigator.platform) && window.navigator.maxTouchPoints > 1);
-			// if (IS_IOS) {
-			// 	window.createImageBitmap = undefined;
-			// }
+			const IS_IOS =
+                /^(iPad|iPhone|iPod)/.test(window.navigator.platform) ||
+                (/^Mac/.test(window.navigator.platform) && window.navigator.maxTouchPoints > 1);
+			if (IS_IOS) {
+				window.createImageBitmap = undefined;
+			}
 
-			import * as THREE from "three";
+			import * as THREE from './build/three.module.js';
 
 			import { OrbitControls } from './examples/jsm/controls/OrbitControls.js';
 			import { GLTFLoader } from './examples/jsm/loaders/GLTFLoader.js';
-			import { DRACOLoader } from './examples/jsm/loaders/DRACOLoader.js';
 			import { RoomEnvironment } from './examples/jsm/environments/RoomEnvironment.js';
 
 		
@@ -64,14 +63,9 @@
 
 				// model
 
-				const dracoLoader = new DRACOLoader();
-				dracoLoader.setDecoderPath( './examples/js/libs/draco/' );
-				dracoLoader.setDecoderConfig( { type: 'js' } );
-				const loader = new GLTFLoader();
-
-				loader.setDRACOLoader( dracoLoader );
-				dracoLoader.preload();
-				loader.load( './examples/models/gltf/wayfarer.gltf', function ( gltf ) {
+				new GLTFLoader()
+					.setPath( './examples/models/gltf/' )
+					.load( 'wayfarer.gltf', function ( gltf ) {
 
 						scene.add( gltf.scene );
 
