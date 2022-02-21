@@ -42,6 +42,7 @@
 
 			import { OrbitControls } from './examples/jsm/controls/OrbitControls.js';
 			import { GLTFLoader } from './examples/jsm/loaders/GLTFLoader.js';
+			import { DRACOLoader } from './examples/jsm/loaders/DRACOLoader.js';
 			import { RoomEnvironment } from './examples/jsm/environments/RoomEnvironment.js';
 
 		
@@ -63,9 +64,14 @@
 
 				// model
 
-				new GLTFLoader()
-					.setPath( './examples/models/gltf/' )
-					.load( 'wayfarer.gltf', function ( gltf ) {
+				const dracoLoader = new DRACOLoader();
+				dracoLoader.setDecoderPath( './examples/js/libs/draco/' );
+				dracoLoader.setDecoderConfig( { type: 'js' } );
+				const loader = new GLTFLoader();
+
+				loader.setDRACOLoader( dracoLoader );
+				dracoLoader.preload();
+				loader.load( './examples/models/gltf/wayfarer.gltf', function ( gltf ) {
 
 						scene.add( gltf.scene );
 
