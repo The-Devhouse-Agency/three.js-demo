@@ -96,3 +96,14 @@ a, button, input, select {
 	margin-top: 20px;
 	padding: 10px;
 }
+@media screen and (max-width: 480px) {
+	#info {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  transform: scale(0.35);
+	  -webkit-transform: scale(0.35);
+	  -moz-transform: scale(0.35);
+	  -o-transform: scale(0.35);
+	}
+  }
